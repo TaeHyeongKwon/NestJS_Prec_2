@@ -5,6 +5,8 @@ import { CatsModule } from './cats/cats.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { Cat } from './cats/entity/cats.entity';
+import { AuthModule } from './auth/auth.module';
+import { User } from './auth/entity/user.entity';
 
 @Module({
   imports: [
@@ -16,10 +18,11 @@ import { Cat } from './cats/entity/cats.entity';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Cat],
+      entities: [Cat, User],
       synchronize: true,
     }),
     CatsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
