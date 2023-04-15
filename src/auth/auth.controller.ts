@@ -13,4 +13,9 @@ export class AuthController {
   ): Promise<any> {
     return await this.authService.registerUser(newUser);
   }
+
+  @Post('/login')
+  async login(@Body() userDTO: UserDTO): Promise<any> {
+    return await this.authService.validateUser(userDTO);
+  }
 }
