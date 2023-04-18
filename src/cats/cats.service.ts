@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cat } from './entity/cats.entity';
 import { Repository } from 'typeorm';
@@ -15,8 +15,12 @@ export class CatsService {
     return this.catsRepository.find();
   }
 
-  findOne(id: number): Promise<CatDTO> {
-    return this.catsRepository.findOne({ where: { id } });
+  async findOne(id: number): Promise<CatDTO> {
+    const existedCat = await this.catsRepository.findOne({ where: { id } });
+
+    if (!existedCat) throw new NotFoundException(`찾을 수 없는 id ${id}`);
+
+    return existedCat;
   }
 
   async create(cat: CatDTO): Promise<void> {
