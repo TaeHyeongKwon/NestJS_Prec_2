@@ -1,16 +1,16 @@
+import { config } from 'dotenv';
+config();
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
 import { Cat } from './cats/entity/cats.entity';
 import { AuthModule } from './auth/auth.module';
 import { User } from './auth/entity/user.entity';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
